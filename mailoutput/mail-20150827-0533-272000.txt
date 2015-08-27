@@ -1,0 +1,10 @@
+To: admin@example.com
+Subject: This is a subject.
+Message-ID: <332b412a3440cdf2471fae6e179a8cb6@localhost>
+Date: Thu, 27 Aug 2015 07:33:46 +0200
+From: Brigido Alejo <brigsalejo@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+This is a body.
