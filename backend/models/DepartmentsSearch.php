@@ -18,8 +18,8 @@ class DepartmentsSearch extends Departments
     public function rules()
     {
         return [
-            [['department_id', 'branches_branch_id', 'company_company_id'], 'integer'],
-            [['department_name', 'department_created_date', 'department_status'], 'safe'],
+            [['department_id'], 'integer'],
+            [['department_name', 'department_created_date', 'department_status', 'branches_branch_id', 'company_company_id'], 'safe'],
         ];
     }
 
@@ -49,21 +49,23 @@ class DepartmentsSearch extends Departments
 
         $this->load($params);
 
-        if (!$this->validate()) {
+        if(!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
             // $query->where('0=1');
             return $dataProvider;
         }
+        $query->joinWith('branchesBranch')
+            ->joinWith('companyCompany');
 
         $query->andFilterWhere([
             'department_id' => $this->department_id,
-            'branches_branch_id' => $this->branches_branch_id,
-            'company_company_id' => $this->company_company_id,
             'department_created_date' => $this->department_created_date,
         ]);
 
         $query->andFilterWhere(['like', 'department_name', $this->department_name])
-            ->andFilterWhere(['like', 'department_status', $this->department_status]);
+            ->andFilterWhere(['like', 'department_status', $this->department_status])
+            ->andFilterWhere(['like', 'branches.branch_name', $this->branches_branch_id])
+            ->andFilterWhere(['like', 'companies.company_name', $this->company_company_id]);
 
         return $dataProvider;
     }
