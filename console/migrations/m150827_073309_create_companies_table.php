@@ -13,6 +13,11 @@ class m150827_073309_create_companies_table extends Migration
         // company_address: varchar(255)
         // company_created_date: datetime
         // company_status: enum('active, inactive')
+
+        /**
+         * Added at Lesson 13
+         */
+        // company_start_date: date
     }
 
     public function down()
