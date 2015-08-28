@@ -18,6 +18,12 @@ class m150827_073309_create_companies_table extends Migration
          * Added at Lesson 13
          */
         // company_start_date: date
+
+        /**
+         * Added at Lesson 17
+         */
+        // logo: varchar(200)
+
     }
 
     public function down()
