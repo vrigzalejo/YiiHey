@@ -6,6 +6,7 @@ use Yii;
 use backend\models\Branches;
 use backend\models\BranchesSearch;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -32,7 +33,7 @@ class BranchesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new BranchesSearch();
+        $searchModel  = new BranchesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -60,17 +61,22 @@ class BranchesController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Branches();
+        if(Yii::$app->user->can('create-branch')) {
+            $model = new Branches();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model->branch_created_date = date('Y-m-d h:m:s');
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->branch_id]);
+            if($model->load(Yii::$app->request->post())) {
+                $model->branch_created_date = date('Y-m-d h:m:s');
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->branch_id]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            throw new ForbiddenHttpException;
         }
+
     }
 
     /**
@@ -83,7 +89,7 @@ class BranchesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->branch_id]);
         } else {
             return $this->render('update', [
@@ -114,7 +120,7 @@ class BranchesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Branches::findOne($id)) !== null) {
+        if(($model = Branches::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
