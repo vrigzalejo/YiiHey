@@ -6,7 +6,6 @@ use Yii;
 use backend\models\Branches;
 use backend\models\BranchesSearch;
 use yii\web\Controller;
-use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -61,22 +60,17 @@ class BranchesController extends Controller
      */
     public function actionCreate()
     {
-        if(Yii::$app->user->can('create-branch')) {
-            $model = new Branches();
+        $model = new Branches();
 
-            if($model->load(Yii::$app->request->post())) {
-                $model->branch_created_date = date('Y-m-d h:m:s');
-                $model->save();
-                return $this->redirect(['view', 'id' => $model->branch_id]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                ]);
-            }
+        if($model->load(Yii::$app->request->post())) {
+            $model->branch_created_date = date('Y-m-d h:m:s');
+            $model->save();
+            return $this->redirect(['view', 'id' => $model->branch_id]);
         } else {
-            throw new ForbiddenHttpException;
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-
     }
 
     /**
@@ -109,6 +103,25 @@ class BranchesController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionLists($id)
+    {
+        $countBranches = Branches::find()
+            ->where(['companies_company_id' => $id])
+            ->count();
+
+        $branches = Branches::find()
+            ->where(['companies_company_id' => $id])
+            ->all();
+
+        if($countBranches > 0) {
+            foreach($branches as $branch) {
+                echo "<option value='" . $branch->branch_id . "'>" . $branch->branch_name . "</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
     }
 
     /**
