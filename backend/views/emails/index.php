@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel backend\modules\settings\models\CompaniesSearch */
+/* @var $searchModel backend\models\EmailsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Companies';
+$this->title = 'Emails';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="companies-index">
+<div class="emails-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Companies', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Emails', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'company_id',
-            'company_name',
-            'company_email:email',
-            'company_address',
-            'company_created_date',
-            // 'company_status',
+            'id',
+            'receiver_name',
+            'receiver_email:email',
+            'subject',
+            'content:ntext',
+            // 'attachment',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
