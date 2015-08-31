@@ -8,7 +8,7 @@ use yii\widgets\Pjax;
 /* @var $searchModel backend\models\BranchesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Branches';
+$this->title                   = 'Branches';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="branches-index">
@@ -23,11 +23,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function ($model) {
+            if($model->branch_status == 'inactive') {
+                return ['class' => 'danger'];
+            } else {
+                return ['class' => 'success'];
+            }
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
             [
-              'attribute' => 'companies_company_id',
-              'value' => 'companiesCompany.company_name',
+                'attribute' => 'companies_company_id',
+                'value' => 'companiesCompany.company_name',
             ],
             'branch_name',
             'branch_address',
