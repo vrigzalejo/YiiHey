@@ -7,15 +7,15 @@ use Yii;
 /**
  * This is the model class for table "companies".
  *
- * @property integer $company_id
- * @property string $company_name
- * @property string $company_email
- * @property string $company_address
- * @property string $company_start_date
- * @property string $company_created_date
- * @property string $company_status
+ * @property integer       $company_id
+ * @property string        $company_name
+ * @property string        $company_email
+ * @property string        $company_address
+ * @property string        $company_start_date
+ * @property string        $company_created_date
+ * @property string        $company_status
  *
- * @property Branches[] $branches
+ * @property Branches[]    $branches
  * @property Departments[] $departments
  */
 class Companies extends \yii\db\ActiveRecord
@@ -36,10 +36,20 @@ class Companies extends \yii\db\ActiveRecord
         return [
             [['company_name', 'company_email', 'company_address', 'company_start_date', 'company_created_date', 'company_status'], 'required'],
             [['company_start_date', 'company_created_date'], 'safe'],
+            ['company_start_date', 'checkDate'],
             [['company_status'], 'string'],
             [['company_name', 'company_email'], 'string', 'max' => 100],
             [['company_address'], 'string', 'max' => 255]
         ];
+    }
+
+    public function checkDate($attribute, $params)
+    {
+        $today        = date('d-M-Y');
+        $selectedDate = date($this->company_start_date);
+        if($selectedDate > $today) {
+            $this->addError($attribute, 'Company Start Date must before ' . $today . '.');
+        }
     }
 
     /**
