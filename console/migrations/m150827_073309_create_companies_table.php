@@ -16,13 +16,11 @@ class m150827_073309_create_companies_table extends Migration
 
         /**
          * Added at Lesson 13
-         * after company_address
          */
         // company_start_date: date
 
         /**
          * Added at Lesson 17
-         * after company_address
          */
         // logo: varchar(200)
 

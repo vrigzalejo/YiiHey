@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use backend\models\AuthItem;
 use Yii;
 use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
@@ -149,6 +150,8 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
+        $authItems = AuthItem::find()->all();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
@@ -159,6 +162,7 @@ class SiteController extends Controller
 
         return $this->render('signup', [
             'model' => $model,
+            'authItems' => $authItems,
         ]);
     }
 
