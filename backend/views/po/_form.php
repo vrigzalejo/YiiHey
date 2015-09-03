@@ -6,7 +6,7 @@ use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\Po */
-/* @var $modelsPoItem backend\models\Po */
+/* @var $modelsPoItem backend\models\PoItem */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -24,7 +24,7 @@ use yii\widgets\ActiveForm;
             'widgetBody' => '.container-items', // required: css class selector
             'widgetItem' => '.item', // required: css class
             'limit' => 4, // the maximum times, an element can be added (default 999)
-            'min' => 0, // 0 or 1 (default 1)
+            'min' => 1, // 0 or 1 (default 1)
             'insertButton' => '.add-item', // css class
             'deleteButton' => '.remove-item', // css class
             'model' => $modelsPoItem[0],
