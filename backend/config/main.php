@@ -12,9 +12,12 @@ return [
     'controllerNamespace' => 'backend\controllers',
     'bootstrap' => ['log'],
     'modules' => [
-        'settings' => [
-            'class' => 'backend\modules\settings\Settings',
+        'gridview' => [
+            'class' => '\kartik\grid\Module',
         ],
+        /*'settings' => [
+            'class' => 'backend\modules\settings\Settings',
+        ],*/
     ],
     'components' => [
         'user' => [
@@ -29,6 +32,14 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'useFileTransport' => false,
+        ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager',
+            'defaultRoles' => ['guest'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

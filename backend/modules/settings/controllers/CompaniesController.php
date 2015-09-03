@@ -2,12 +2,13 @@
 
 namespace backend\modules\settings\controllers;
 
-use Yii;
 use backend\modules\settings\models\Companies;
 use backend\modules\settings\models\CompaniesSearch;
+use Yii;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\widgets\ActiveForm;
 
 /**
  * CompaniesController implements the CRUD actions for Companies model.
@@ -32,7 +33,7 @@ class CompaniesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new CompaniesSearch();
+        $searchModel  = new CompaniesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,7 +63,12 @@ class CompaniesController extends Controller
     {
         $model = new Companies();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if(Yii::$app->request->isAjax && $model->load($_POST)) {
+            Yii::$app->response->format = 'json';
+            return ActiveForm::validate($model);
+        }
+
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->company_id]);
         } else {
             return $this->render('create', [
@@ -81,7 +87,7 @@ class CompaniesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->company_id]);
         } else {
             return $this->render('update', [
@@ -112,7 +118,7 @@ class CompaniesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Companies::findOne($id)) !== null) {
+        if(($model = Companies::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

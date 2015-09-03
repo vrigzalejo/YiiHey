@@ -32,7 +32,7 @@ class BranchesController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new BranchesSearch();
+        $searchModel  = new BranchesSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -62,12 +62,12 @@ class BranchesController extends Controller
     {
         $model = new Branches();
 
-        if ($model->load(Yii::$app->request->post())) {
+        if($model->load(Yii::$app->request->post())) {
             $model->branch_created_date = date('Y-m-d h:m:s');
             $model->save();
             return $this->redirect(['view', 'id' => $model->branch_id]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -83,7 +83,7 @@ class BranchesController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->branch_id]);
         } else {
             return $this->render('update', [
@@ -105,6 +105,25 @@ class BranchesController extends Controller
         return $this->redirect(['index']);
     }
 
+    public function actionLists($id)
+    {
+        $countBranches = Branches::find()
+            ->where(['companies_company_id' => $id])
+            ->count();
+
+        $branches = Branches::find()
+            ->where(['companies_company_id' => $id])
+            ->all();
+
+        if($countBranches > 0) {
+            foreach($branches as $branch) {
+                echo "<option value='" . $branch->branch_id . "'>" . $branch->branch_name . "</option>";
+            }
+        } else {
+            echo "<option>-</option>";
+        }
+    }
+
     /**
      * Finds the Branches model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
@@ -114,7 +133,7 @@ class BranchesController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Branches::findOne($id)) !== null) {
+        if(($model = Branches::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
