@@ -14,9 +14,9 @@ class m150902_031326_create_locations_table extends Migration
 
     public function down()
     {
-        echo "m150902_031326_create_locations_table cannot be reverted.\n";
-
-        return false;
+//        echo "m150902_031326_create_locations_table cannot be reverted.\n";
+//
+//        return false;
     }
 
     /*

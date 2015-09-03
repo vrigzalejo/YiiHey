@@ -12,17 +12,29 @@ class m150828_073146_create_auth_rule_table extends Migration
         (
         `name` varchar(64) not null,
         `data` text,
-        `created_at` integer,
-        `updated_at` integer, primary key (`name`)
+        `created_at` datetime,
+        `updated_at` datetime, primary key (`name`)
         ) engine InnoDB;
         */
+
+        $tableOptions = null;
+        if( $this->db->driverName === 'mysql' ) {
+            $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+        }
+
+        $this->createTable( '{{%auth_rule}}', [
+            'name'       => $this->string( 64 )->notNull(),
+            'data'       => $this->text(),
+            'created_at' => $this->dateTime(),
+            'updated_at' => $this->dateTime(),
+        ], $tableOptions );
+
+        $this->addPrimaryKey( 'name', '{{%auth_rule}}', 'name' );
     }
 
     public function down()
     {
-        echo "m150828_073146_create_auth_rule_table cannot be reverted.\n";
-
-        return false;
+        $this->dropTable( '{{%auth_rule}}' );
     }
 
     /*

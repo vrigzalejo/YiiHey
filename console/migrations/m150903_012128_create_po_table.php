@@ -13,9 +13,9 @@ class m150903_012128_create_po_table extends Migration
 
     public function down()
     {
-        echo "m150903_012128_create_po_table cannot be reverted.\n";
-
-        return false;
+//        echo "m150903_012128_create_po_table cannot be reverted.\n";
+//
+//        return false;
     }
 
     /*

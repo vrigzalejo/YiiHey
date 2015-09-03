@@ -17,13 +17,23 @@ class m150828_073217_create_auth_item_child_table extends Migration
         foreign key (`child`) references `auth_item` (`name`) on delete cascade on update cascade
         ) engine InnoDB;
       */
+
+        $tableOptions = null;
+        if( $this->db->driverName === 'mysql' ) {
+            $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+        }
+
+        $this->createTable( '{{%auth_item_child}}', [
+            'parent'       => $this->string( 64 )->notNull(),
+            'child'       => $this->string( 64 )->notNull(),
+        ], $tableOptions );
+
+        $this->addPrimaryKey( 'parent', '{{%auth_item_child}}', ['parent', 'child'] );
     }
 
     public function down()
     {
-        echo "m150828_073217_create_auth_item_child_table cannot be reverted.\n";
-
-        return false;
+        $this->dropTable( '{{%auth_item_child}}' );
     }
 
     /*

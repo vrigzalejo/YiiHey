@@ -13,13 +13,26 @@ class m150827_073327_create_departments_table extends Migration
         // company_company_id: int(11)
         // department_created_date: datetime
         // department_status: enum('active, inactive')
+
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+        }
+
+        $this->createTable('{{%departments}}', [
+            'department_id' => $this->primaryKey(),
+            'branches_branch_id' => $this->integer(),
+            'department_name' => $this->string(100)->notNull(),
+            'company_company_id' => $this->integer(),
+            'department_created_date' => $this->dateTime()->notNull(),
+            'department_status' => 'enum(\'active\', \'inactive\') NOT NULL',
+        ], $tableOptions);
+
     }
 
     public function down()
     {
-        echo "m150827_073327_create_departments_table cannot be reverted.\n";
-
-        return false;
+        $this->dropTable( '{{%departments}}' );
     }
 
     /*

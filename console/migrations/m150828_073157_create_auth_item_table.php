@@ -15,20 +15,36 @@ class m150828_073157_create_auth_item_table extends Migration
         `description` text,
         `rule_name` varchar(64),
         `data` text,
-        `created_at` integer,
-        `updated_at` integer,
+        `created_at` datetime,
+        `updated_at` datetime,
         primary key (`name`),
         foreign key (`rule_name`) references `auth_rule` (`name`) on delete set null on update cascade,
         key `type` (`type`)
         ) engine InnoDB;
         */
+
+        $tableOptions = null;
+        if( $this->db->driverName === 'mysql' ) {
+            $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+        }
+
+        $this->createTable( '{{%auth_item}}', [
+            'name'        => $this->string( 64 )->notNull(),
+            'type'        => $this->integer()->notNull(),
+            'description' => $this->text(),
+            'rule_name'   => $this->string( 64 ),
+            'data'        => $this->text(),
+            'created_at'  => $this->dateTime(),
+            'updated_at'  => $this->dateTime(),
+        ], $tableOptions );
+
+        $this->addPrimaryKey( 'name', '{{%auth_item}}', 'name' );
+
     }
 
     public function down()
     {
-        echo "m150828_073157_create_auth_item_table cannot be reverted.\n";
-
-        return false;
+        $this->dropTable( '{{%auth_item}}' );
     }
 
     /*

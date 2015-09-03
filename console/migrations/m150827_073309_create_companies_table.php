@@ -24,13 +24,27 @@ class m150827_073309_create_companies_table extends Migration
          */
         // logo: varchar(200)
 
+        $tableOptions = null;
+        if ($this->db->driverName === 'mysql') {
+            $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+        }
+
+        $this->createTable('{{%companies}}', [
+            'company_id' => $this->primaryKey(),
+            'company_name' => $this->string(100)->notNull(),
+            'company_email' => $this->string(100)->notNull(),
+            'company_address' => $this->string()->notNull(),
+            'logo' => $this->string(200),
+            'company_start_date' => $this->date()->notNull(),
+            'company_created_date' => $this->dateTime()->notNull(),
+            'company_status' => 'enum(\'active\', \'inactive\') NOT NULL',
+        ], $tableOptions);
+
     }
 
     public function down()
     {
-        echo "m150827_073309_create_companies_table cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('{{%companies}}');
     }
 
     /*

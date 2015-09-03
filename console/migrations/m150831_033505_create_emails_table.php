@@ -17,9 +17,9 @@ class m150831_033505_create_emails_table extends Migration
 
     public function down()
     {
-        echo "m150831_033505_create_emails_table cannot be reverted.\n";
-
-        return false;
+//        echo "m150831_033505_create_emails_table cannot be reverted.\n";
+//
+//        return false;
     }
 
     /*

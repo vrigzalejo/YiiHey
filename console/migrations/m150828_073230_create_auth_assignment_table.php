@@ -21,9 +21,9 @@ class m150828_073230_create_auth_assignment_table extends Migration
 
     public function down()
     {
-        echo "m150828_073230_create_auth_assignment_table cannot be reverted.\n";
-
-        return false;
+//        echo "m150828_073230_create_auth_assignment_table cannot be reverted.\n";
+//
+//        return false;
     }
 
     /*
