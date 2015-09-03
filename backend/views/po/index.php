@@ -1,6 +1,7 @@
 <?php
 
-use yii\grid\GridView;
+use backend\models\PoItemSearch;
+use kartik\grid\GridView;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
@@ -22,10 +23,25 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'export' => false,
+        'pjax' => true,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'class' => 'kartik\grid\ExpandRowColumn',
+                'value' => function($model, $key, $index, $column) {
+                    return GridView::ROW_COLLAPSED;
+                },
+                'detail' => function($model, $key, $index, $column) {
+                    $searchModel = new PoItemSearch();
+                    $searchModel->po_id = $model->id;
+                    $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-            'id',
+                    return Yii::$app->controller->renderPartial('_poitems', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+                    ]);
+                },
+            ],
             'po_no',
             'description:ntext',
 
