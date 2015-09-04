@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150827_073327_create_departments_table extends Migration
@@ -15,18 +14,18 @@ class m150827_073327_create_departments_table extends Migration
         // department_status: enum('active, inactive')
 
         $tableOptions = null;
-        if ($this->db->driverName === 'mysql') {
+        if( $this->db->driverName === 'mysql' ) {
             $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
         }
 
-        $this->createTable('{{%departments}}', [
-            'department_id' => $this->primaryKey(),
-            'branches_branch_id' => $this->integer(),
-            'department_name' => $this->string(100)->notNull(),
-            'company_company_id' => $this->integer(),
+        $this->createTable( '{{%departments}}', [
+            'department_id'           => $this->primaryKey(),
+            'branches_branch_id'      => $this->integer()->notNull(),
+            'department_name'         => $this->string( 100 )->notNull(),
+            'company_company_id'      => $this->integer()->notNull(),
             'department_created_date' => $this->dateTime()->notNull(),
-            'department_status' => 'enum(\'active\', \'inactive\') NOT NULL',
-        ], $tableOptions);
+            'department_status'       => 'enum(\'active\', \'inactive\') NOT NULL',
+        ], $tableOptions );
 
     }
 

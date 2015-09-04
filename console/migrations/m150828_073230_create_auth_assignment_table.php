@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150828_073230_create_auth_assignment_table extends Migration
@@ -12,18 +11,29 @@ class m150828_073230_create_auth_assignment_table extends Migration
         (
         `item_name` varchar(64) not null,
         `user_id` varchar(64) not null,
-        `created_at` integer,
+        `created_at` datetime,
         primary key (`item_name`, `user_id`),
         foreign key (`item_name`) references `auth_item` (`name`) on delete cascade on update cascade
         ) engine InnoDB;
         */
+
+        $tableOptions = null;
+        if( $this->db->driverName === 'mysql' ) {
+            $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+        }
+
+        $this->createTable( '{{%auth_assignment}}', [
+            'item_name'  => $this->string( 64 )->notNull(),
+            'user_id'    => $this->integer()->notNull(),
+            'created_at' => $this->dateTime(),
+        ], $tableOptions );
+
+        $this->addPrimaryKey( 'PK_auth_assignment', '{{%auth_assignment}}', 'item_name' );
     }
 
     public function down()
     {
-//        echo "m150828_073230_create_auth_assignment_table cannot be reverted.\n";
-//
-//        return false;
+        $this->dropTable( '{{%auth_assignment}}' );
     }
 
     /*

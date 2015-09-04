@@ -10,13 +10,23 @@ class m150903_012149_create_po_item_table extends Migration
         // po_item_no: varchar(10)
         // quantity: double
         // po_id: int(11)
+
+        $tableOptions = null;
+        if( $this->db->driverName === 'mysql' ) {
+            $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
+        }
+
+        $this->createTable( '{{%po_item}}', [
+            'id'         => $this->primaryKey(),
+            'po_item_no' => $this->string( 10 )->notNull(),
+            'quantity'   => $this->double()->notNull(),
+            'po_id'      => $this->integer()->notNull(),
+        ], $tableOptions );
     }
 
     public function down()
     {
-//        echo "m150903_012149_create_po_item_table cannot be reverted.\n";
-//
-//        return false;
+        $this->dropTable( '{{%po_item}}' );
     }
 
     /*

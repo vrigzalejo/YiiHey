@@ -1,26 +1,25 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150903_160535_alter_branches_table extends Migration
 {
     public function up()
     {
-        $this->createIndex( 'companies_company_id', '{{%branches}}', 'companies_company_id' );
+//        $this->createIndex( 'companies_company_id', '{{%branches}}', 'companies_company_id' );
 
-        $this->addForeignKey( 'FK_companies_company_id'
+        $this->addForeignKey( 'branches_ibfk_1'
             , '{{%branches}}'
             , 'companies_company_id'
             , 'companies'
             , 'company_id'
-            , 'set null'
+            , 'cascade'
             , 'cascade' );
     }
 
     public function down()
     {
-        $this->dropForeignKey( 'FK_companies_company_id', '{{%branches}}' );
+        $this->dropForeignKey( 'branches_ibfk_1', '{{%branches}}' );
     }
 
     /*

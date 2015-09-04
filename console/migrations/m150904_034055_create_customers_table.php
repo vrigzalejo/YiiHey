@@ -2,11 +2,12 @@
 
 use yii\db\Migration;
 
-class m150902_031326_create_locations_table extends Migration
+class m150904_034055_create_customers_table extends Migration
 {
     public function up()
     {
-        // location_id: int(11)
+        // customer_id: int(11)
+        // customer_name: varchar(100)
         // zip_code: varchar(20)
         // city: varchar(100)
         // province: varchar(100)
@@ -16,17 +17,18 @@ class m150902_031326_create_locations_table extends Migration
             $tableOptions = 'ENGINE=InnoDB DEFAULT CHARSET=utf8';
         }
 
-        $this->createTable( '{{%locations}}', [
-            'location_id' => $this->primaryKey(),
-            'zip_code'    => $this->string( 20 )->notNull(),
-            'city'        => $this->string( 100 )->notNull(),
-            'province'    => $this->string( 100 )->notNull(),
+        $this->createTable( '{{%customers}}', [
+            'customer_id'   => $this->primaryKey(),
+            'customer_name' => $this->string( 100 )->notNull(),
+            'zip_code'      => $this->string( 20 )->notNull(),
+            'city'          => $this->string( 100 )->notNull(),
+            'province'      => $this->string( 100 )->notNull(),
         ], $tableOptions );
     }
 
     public function down()
     {
-        $this->dropTable( '{{%locations}}' );
+        $this->dropTable( '{{%customers}}' );
     }
 
     /*

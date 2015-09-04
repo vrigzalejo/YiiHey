@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150903_160604_alter_departments_table extends Migration
@@ -8,29 +7,29 @@ class m150903_160604_alter_departments_table extends Migration
     public function up()
     {
 
-        $this->createIndex('branches_branch_id', '{{%departments}}', 'branches_branch_id');
-        $this->createIndex('company_company_id', '{{%departments}}', 'company_company_id');
+//        $this->createIndex('branches_branch_id', '{{%departments}}', 'branches_branch_id');
+//        $this->createIndex('company_company_id', '{{%departments}}', 'company_company_id');
 
-        $this->addForeignKey( 'FK_branches_branch_id'
+        $this->addForeignKey( 'departments_ibfk_1'
             , '{{%departments}}'
             , 'branches_branch_id'
             , 'branches'
             , 'branch_id'
-            , 'set null'
+            , 'cascade'
             , 'cascade' );
-        $this->addForeignKey( 'FK_company_company_id'
+        $this->addForeignKey( 'departments_ibfk_2'
             , '{{%departments}}'
             , 'company_company_id'
             , 'companies'
             , 'company_id'
-            , 'set null'
+            , 'cascade'
             , 'cascade' );
     }
 
     public function down()
     {
-        $this->dropForeignKey( 'FK_branches_branch_id', '{{%departments}}' );
-        $this->dropForeignKey( 'FK_company_company_id', '{{%departments}}' );
+        $this->dropForeignKey( 'departments_ibfk_1', '{{%departments}}' );
+        $this->dropForeignKey( 'departments_ibfk_2', '{{%departments}}' );
     }
 
     /*

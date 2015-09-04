@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150828_073146_create_auth_rule_table extends Migration
@@ -29,7 +28,7 @@ class m150828_073146_create_auth_rule_table extends Migration
             'updated_at' => $this->dateTime(),
         ], $tableOptions );
 
-        $this->addPrimaryKey( 'name', '{{%auth_rule}}', 'name' );
+        $this->addPrimaryKey( 'PK_auth_rule', '{{%auth_rule}}', 'name' );
     }
 
     public function down()

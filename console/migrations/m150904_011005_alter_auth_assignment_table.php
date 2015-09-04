@@ -2,14 +2,14 @@
 
 use yii\db\Migration;
 
-class m150903_160735_alter_po_item_table extends Migration
+class m150904_011005_alter_auth_assignment_table extends Migration
 {
     public function up()
     {
-        $this->addForeignKey( 'po_item_ibfk_1'
-            , '{{%po_item}}'
-            , 'po_id'
-            , 'po'
+        $this->addForeignKey( 'auth_assignment_ibfk_1'
+            , '{{%auth_assignment}}'
+            , 'user_id'
+            , 'user'
             , 'id'
             , 'cascade'
             , 'cascade' );
@@ -17,7 +17,7 @@ class m150903_160735_alter_po_item_table extends Migration
 
     public function down()
     {
-        $this->dropForeignKey( 'po_item_ibfk_1', '{{%po_item}}' );
+        $this->dropForeignKey( 'auth_assignment_ibfk_1', '{{%auth_assignment}}' );
     }
 
     /*

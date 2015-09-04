@@ -1,20 +1,19 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150903_160646_alter_auth_item_child_table extends Migration
 {
     public function up()
     {
-        $this->addForeignKey( 'FK_parent'
+        $this->addForeignKey( 'auth_item_child_ibfk_1'
             , '{{%auth_item_child}}'
             , 'parent'
             , 'auth_item'
             , 'name'
             , 'cascade'
             , 'cascade' );
-        $this->addForeignKey( 'FK_child'
+        $this->addForeignKey( 'auth_item_child_ibfk_2'
             , '{{%auth_item_child}}'
             , 'child'
             , 'auth_item'
@@ -25,8 +24,8 @@ class m150903_160646_alter_auth_item_child_table extends Migration
 
     public function down()
     {
-        $this->dropForeignKey( 'FK_parent', '{{%auth_item_child}}' );
-        $this->dropForeignKey( 'FK_child', '{{%auth_item_child}}' );
+        $this->dropForeignKey( 'auth_item_child_ibfk_1', '{{%auth_item_child}}' );
+        $this->dropForeignKey( 'auth_item_child_ibfk_2', '{{%auth_item_child}}' );
     }
 
     /*

@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150827_073157_create_branches_table extends Migration
@@ -21,7 +20,8 @@ class m150827_073157_create_branches_table extends Migration
 
         $this->createTable( '{{%branches}}', [
             'branch_id'            => $this->primaryKey(),
-            'companies_company_id' => $this->integer(),
+            // I made 'company_company_id' nullable because it doesn't add the foreign key T_T
+            'companies_company_id' => $this->integer()->notNull(),
             'branch_name'          => $this->string( 100 )->notNull(),
             'branch_address'       => $this->string()->notNull(),
             'branch_created_date'  => $this->dateTime()->notNull(),

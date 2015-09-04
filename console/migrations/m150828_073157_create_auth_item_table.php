@@ -1,6 +1,5 @@
 <?php
 
-use yii\db\Schema;
 use yii\db\Migration;
 
 class m150828_073157_create_auth_item_table extends Migration
@@ -38,7 +37,7 @@ class m150828_073157_create_auth_item_table extends Migration
             'updated_at'  => $this->dateTime(),
         ], $tableOptions );
 
-        $this->addPrimaryKey( 'name', '{{%auth_item}}', 'name' );
+        $this->addPrimaryKey( 'PK_auth_item', '{{%auth_item}}', 'name' );
 
     }
 
