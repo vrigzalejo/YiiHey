@@ -1,4 +1,8 @@
 <?php
+
+// template path (by default @tests/unit/templates/fixtures)
+Yii::setAlias('tests', __DIR__ . '/../../tests');
+
 $params = array_merge(
     require(__DIR__ . '/../../common/config/params.php'),
     require(__DIR__ . '/../../common/config/params-local.php'),
@@ -22,4 +26,10 @@ return [
         ],
     ],
     'params' => $params,
+    // Added for db seeds
+    'controllerMap' => [
+        'fixture' => [
+            'class' => 'yii\faker\FixtureController',
+        ],
+    ],
 ];
