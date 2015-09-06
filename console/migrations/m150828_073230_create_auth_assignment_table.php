@@ -28,7 +28,6 @@ class m150828_073230_create_auth_assignment_table extends Migration
             'created_at' => $this->dateTime(),
         ], $tableOptions );
 
-        $this->addPrimaryKey( 'PK_auth_assignment', '{{%auth_assignment}}', 'item_name' );
     }
 
     public function down()

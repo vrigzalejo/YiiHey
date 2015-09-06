@@ -8,6 +8,13 @@ class m150904_011005_alter_auth_assignment_table extends Migration
     {
         $this->addForeignKey( 'auth_assignment_ibfk_1'
             , '{{%auth_assignment}}'
+            , 'item_name'
+            , 'auth_item'
+            , 'name'
+            , 'cascade'
+            , 'cascade' );
+        $this->addForeignKey( 'auth_assignment_ibfk_2'
+            , '{{%auth_assignment}}'
             , 'user_id'
             , 'user'
             , 'id'
@@ -18,6 +25,7 @@ class m150904_011005_alter_auth_assignment_table extends Migration
     public function down()
     {
         $this->dropForeignKey( 'auth_assignment_ibfk_1', '{{%auth_assignment}}' );
+        $this->dropForeignKey( 'auth_assignment_ibfk_2', '{{%auth_assignment}}' );
     }
 
     /*
