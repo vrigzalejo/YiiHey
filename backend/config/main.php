@@ -44,6 +44,10 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        // created a component for YiiHey
+        'YiiHeyComponent' => [
+            'class' => 'backend\components\YiiHeyComponent',
+        ],
     ],
     'params' => $params,
 ];

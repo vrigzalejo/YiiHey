@@ -55,7 +55,9 @@ class SiteController extends Controller
 
     public function actionIndex()
     {
-        return $this->render('index');
+        Yii::$app->YiiHeyComponent->hello();
+        exit;
+//        return $this->render('index');
     }
 
     public function actionLogin()
