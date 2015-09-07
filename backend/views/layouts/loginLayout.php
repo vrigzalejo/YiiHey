@@ -3,10 +3,10 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use backend\assets\AppAsset;
+use backend\assets\LoginAsset;
 use yii\helpers\Html;
 
-AppAsset::register( $this );
+LoginAsset::register( $this );
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
