@@ -1,0 +1,17 @@
+{
+  "name": "YiiHey",
+  "version": "1.0.0",
+  "homepage": "https://github.com/vrigzalejo/YiiHey",
+  "authors": [
+    "Brigido Alejo <brigsalejo@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "vendor/bower"
+  ],
+  "dependencies": {
+    "AdminLTE": "admin-lte#~2.3.0"
+  }
+}
